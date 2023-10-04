@@ -8,6 +8,11 @@ class Spaceship {
     var health = 100
     var position = 0
     
+    init(name: String = "", health: Int = 0, position: Int = 0) {
+        self.name = name
+        self.health = health
+        self.position = position
+    }
     func moveLeft() {
         position -= 1
     }
@@ -20,6 +25,19 @@ class Spaceship {
         health -= 5
         if health <= 0 {
             print("Sorry, your ship was hit one too many times. Do you want to play again?")
+        }
+    }
+}
+
+class Fighter: Spaceship {
+    var weapon = ""
+    var remainingFirePower = 5
+    
+    func fire() {
+        if remainingFirePower > 0 {
+            remainingFirePower -= 1
+        } else {
+            print("You have no more fire power.")
         }
     }
 }

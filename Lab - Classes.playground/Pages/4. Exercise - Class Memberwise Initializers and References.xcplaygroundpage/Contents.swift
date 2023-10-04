@@ -7,7 +7,8 @@ class Spaceship {
     let name: String
     var health: Int
     var position: Int
-
+    
+    
     func moveLeft() {
         position -= 1
     }

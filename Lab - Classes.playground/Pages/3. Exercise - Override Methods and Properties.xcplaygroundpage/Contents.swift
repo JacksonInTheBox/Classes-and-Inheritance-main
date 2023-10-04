@@ -4,35 +4,64 @@
  - Note: The exercises below are based on a game where a spaceship avoids obstacles in space. The ship is positioned at the bottom of a coordinate system and can only move left and right while obstacles "fall" from top to bottom. Throughout the exercises, you'll create classes to represent different types of spaceships that can be used in the game. The base class `Spaceship` and one subclass `Fighter` have been provided for you below.
  */
 class Spaceship {
-    var name: String = ""
-    var health = 100
-    var position = 0
+    let name: String
+    var health: Int
+    var position: Int
+    
+    init(name: String, health: Int, position: Int) {
+        self.name = name
+        self.health = health
+        self.position = position
+    }
     
     func moveLeft() {
         position -= 1
     }
-    
+
     func moveRight() {
         position += 1
     }
-    
+
     func wasHit() {
         health -= 5
         if health <= 0 {
-            print("Sorry, your ship was hit one too many times. Do you want to play again?")
+            print("Sorry, your ship \(name) was hit one too many times. Do you want to play again?")
         }
     }
 }
 
 class Fighter: Spaceship {
-    var weapon = ""
-    var remainingFirePower = 5
-    
+    let weapon: String
+    var remainingFirePower: Int
+
+    init(name: String, health: Int, position: Int, weapon: String, firePower: Int) {
+        self.weapon = weapon
+        self.remainingFirePower = firePower
+        super.init(name: name, health: health, position: position)
+    }
+
     func fire() {
         if remainingFirePower > 0 {
             remainingFirePower -= 1
         } else {
-            print("You have no more fire power.")
+            print("You have no more firepower for \(weapon).")
+        }
+    }
+}
+
+class ShieldedShip: Fighter {
+    var shieldStrength: Int
+
+    init(name: String, health: Int, position: Int, weapon: String, firePower: Int, shieldStrength: Int) {
+        self.shieldStrength = shieldStrength
+        super.init(name: name, health: health, position: position, weapon: weapon, firePower: firePower)
+    }
+
+    override func wasHit() {
+        if shieldStrength > 0 {
+            shieldStrength -= 5
+        } else {
+            super.wasHit()
         }
     }
 }
